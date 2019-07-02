@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: partidas
+---
+testFramework: junit
+sourceLanguage: java
