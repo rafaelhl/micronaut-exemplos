@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:1.7.18
+    container_name: traefik
+    command:
+      - "--api"
+      - "--docker"
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  clubes:
+    image: clubes
+    container_name: clubes
+    environment:
+      - "consul.client.registration.enabled=false"
+      - "micronaut.server.port=8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.clubes.frontend.rule=Host:localhost"
